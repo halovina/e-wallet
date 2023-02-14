@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'account',
     'balance',
     'ledger',
+    'users',
 ]
 
 MIDDLEWARE = [
