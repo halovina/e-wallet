@@ -1,6 +1,6 @@
 from math import fabs
 import re
-
+from django.contrib.auth import authenticate
         
 def validate_format_password(password):
     flag = 0
@@ -36,3 +36,11 @@ def validate_format_password(password):
         return False, msg
     else:
         return True, msg
+    
+    
+def checkUserLogin(email, password):
+    user = authenticate(username=email, password=password)
+    if user is not None:
+        return True, user
+    else:
+        return False, user

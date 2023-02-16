@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from users.utils import validate_format_password
+from users.utils import validate_format_password, checkUserLogin
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 class RegisterUser(TemplateView):
@@ -38,3 +40,29 @@ def createNewUser(email, password, fullname):
         password=password,
         first_name=fullname
     )
+    
+
+class LoginUser(TemplateView):
+    template_name = 'user/login.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
+    def post(self, *args, **kwargs):
+        context = self.get_context_data()
+        email = self.request.POST.get('email')
+        password = self.request.POST.get('password')
+        is_authenticate, user = checkUserLogin(email, password)
+        if is_authenticate:
+            login(self.request, user)
+            return HttpResponseRedirect('/home/dashboard')
+        messages.error(self.request,"Periksa email dan password Anda")
+        return super(TemplateView, self).render_to_response(context)
+    
+    
+def userLogout(request):
+    try:
+        request.session.clear()
+    except Exception as e:
+        pass
+    return HttpResponseRedirect('/accounts/login/')
