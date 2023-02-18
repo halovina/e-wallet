@@ -16,9 +16,6 @@
                 -moz-user-select: none;
                 user-select: none;
             }
-
-
-
             @media (min-width: 768px) {
                 .bd-placeholder-img-lg {
                     font-size: 3.5rem;
@@ -27,9 +24,6 @@
         </style>
     </head>
     <body class="text-center">
-
-
-
         <main class="form-register">
             <form method="post" action="">
                 {% csrf_token %}
@@ -78,23 +72,10 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
             </form>
-            {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags == "error" %}
-                        <div class="alert alert-danger" role="alert">
-                            {{message}}
-                        </div>
-                    {% endif %}
-                    {% if message.tags == "success" %}
-                        <div class="alert alert-success" role="alert">
-                            {{message}}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            
         </main>
 
-
+        {% include 'common_alert.html' %}
 
     </body>
 </html>

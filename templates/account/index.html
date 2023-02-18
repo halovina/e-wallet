@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %} 
+<h2>Tipe Akun</h2>
+<div class="col-md-12 order-md-2 mb-4">
+    <a href="/acc/account-type/create">
+        <button type="button" class="btn btn-secondary">Tambah Data</button>
+    </a>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nama Account</th>
+        <th>Slug</th>
+        <th>Created Date</th>
+        <th>Updated Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for x in acc %}
+      <tr>
+        <td>{{x.id}}</td>
+        <td>{{x.type_name}}</td>
+        <td>{{x.slug}}</td>
+        <td>{{x.created_date}}</td>
+        <td>{{x.update_date}}</td>
+        <td>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Action
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="/acc/account-type/edit/{{x.id}}">Edit</a></li>
+                  <li><a class="dropdown-item" href="/acc/account-type/delete/{{x.id}}">Delete</a></li>
+                </ul>
+              </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% include 'common_alert.html' %}
+</div>
+  
+{% endblock %}

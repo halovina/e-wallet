@@ -53,20 +53,7 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
             </form>
-            {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags == "error" %}
-                        <div class="alert alert-danger" role="alert">
-                            {{message}}
-                        </div>
-                    {% endif %}
-                    {% if message.tags == "success" %}
-                        <div class="alert alert-success" role="alert">
-                            {{message}}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            {% include 'common_alert.html' %}
         </main>
     </body>
 </html>

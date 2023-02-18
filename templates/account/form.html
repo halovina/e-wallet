@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %} 
+<h2>{{h_title}}</h2>
+<div class="col-md-12 order-md-2 mb-4">
+  <form action="" method="post">
+    <input type="hidden" name="account_id" value="{{acc.id}}">
+    {% csrf_token %}
+    <div class="mb-3 mt-3">
+      <label for="account_type_name" class="form-label">Tipe Akun:</label>
+      <input type="text" class="form-control" id="account_type_name" placeholder="Tipe Akun" name="account_type_name" value="{{acc.type_name}}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">SUBMIT</button>
+  </form>
+</div>
+{% endblock %}
