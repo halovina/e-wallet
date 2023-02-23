@@ -6,6 +6,7 @@ from .models import AccountType as AccountTypeModel
 from django.utils.text import slugify
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from internal.utils import is_administrator
 # Create your views here.
 
 
@@ -13,6 +14,7 @@ class AccountType(TemplateView):
     template_name = 'account/index.html'
     
     @method_decorator(login_required)
+    @method_decorator(is_administrator)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     
@@ -26,6 +28,7 @@ class AccountTypeCreate(TemplateView):
     template_name = 'account/form.html'
     
     @method_decorator(login_required)
+    @method_decorator(is_administrator)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     
@@ -51,6 +54,7 @@ class AccountTypeEdit(TemplateView):
     template_name = 'account/form.html'
     
     @method_decorator(login_required)
+    @method_decorator(is_administrator)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     
@@ -73,7 +77,8 @@ class AccountTypeEdit(TemplateView):
         return HttpResponseRedirect('/acc/account-type')
     
 
-@login_required    
+@login_required   
+@is_administrator
 def accountTypeDelete(request, account_id):
     try:
         AccountTypeModel.objects.filter(id=account_id).delete()
